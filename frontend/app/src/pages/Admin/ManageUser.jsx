@@ -83,7 +83,7 @@ function ManageUser() {
             Download report
           </button>
         </div>
-        <div className='grid grid-cols-1 md:grid-cols-4 gap-2 mt-3'>
+        <div className='flex flex-wrap gap-2 mt-3'>
           {allUsers?.map((user) => (
             <UserCard key={user._id} userInfo={user} />
           ))}

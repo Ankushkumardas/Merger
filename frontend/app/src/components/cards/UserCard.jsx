@@ -2,33 +2,49 @@ import React from "react";
 
 function UserCard({ userInfo }) {
   return (
-    <div>
-      <div className=" border border-slate-200 p-2 rounded-md shadow-sm">
-        <div className="flex">
-          <img src={userInfo?.profileImageUrl} alt="" />
-          <div className=" ">
-            <p>Name:{userInfo?.name}</p>
-            <p>Email:{userInfo?.email}</p>
-            <p>Role:{userInfo?.role}</p>
-            <div className=" flex ">
-              <StatCard
-                label={"Pending"}
-                count={userInfo?.pendingTasks || 0}
-                status={"Pending"}
-              />
-              <StatCard
-                label={"In Progress"}
-                count={userInfo?.pendingTasks || 0}
-                status={"In Progress"}
-              />
-              <StatCard
-                label={"Completed"}
-                count={userInfo?.pendingTasks || 0}
-                status={"Completed"}
-              />
-            </div>
-          </div>
+    <div className="border border-slate-200 p-3 rounded-lg shadow-sm bg-white hover:shadow-md transition-all flex flex-col gap-2">
+      <div className="flex justify-between items-center gap-3">
+
+        <div className=" text-sm space-y-1">
+          <p>
+            <span className="text-gray-600">Name:</span>{" "}
+            <span className="font-medium">{userInfo?.name}</span>
+          </p>
+          <p>
+            <span className="text-gray-600">Email:</span>{" "}
+            <span>{userInfo?.email}</span>
+          </p>
+          <p>
+            <span className="text-gray-600">Role:</span>{" "}
+            <span>{userInfo?.role}</span>
+          </p>
         </div>
+        <img
+          src={
+            userInfo?.profileImageUrl ||
+            `https://ui-avatars.com/api/?name=${userInfo?.name}`
+          }
+          alt="User"
+          className="w-12 h-12 rounded-full object-cover border border-slate-300"
+        />
+      </div>
+
+      <div className="flex flex-wrap gap-2 justify-end mt-2">
+        <StatCard
+          label="Pending"
+          count={userInfo?.pendingTasks || 0}
+          status="Pending"
+        />
+        <StatCard
+          label="In Progress"
+          count={userInfo?.inprogressTasks || 0}
+          status="In Progress"
+        />
+        <StatCard
+          label="Completed"
+          count={userInfo?.completedTasks || 0}
+          status="Completed"
+        />
       </div>
     </div>
   );
@@ -49,12 +65,13 @@ const StatCard = ({ label, count, status }) => {
         return "text-gray-800 bg-gray-100";
     }
   };
+
   return (
-    <div className={`flex ${getStatusTagColor()} px-3 py-3 rounded-md`}>
-        <div className=" flex flex-col items-center gap-1">
-      <span className=" text-center text-xs">{label}</span>
-      <span className=" text-center">{count}</span>
-      </div>
+    <div
+      className={`flex flex-col items-center px-2 py-1 rounded-md min-w-[70px] ${getStatusTagColor()}`}
+    >
+      <span className="text-[11px] font-medium">{label}</span>
+      <span className="text-sm font-semibold">{count}</span>
     </div>
   );
 };

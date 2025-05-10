@@ -331,136 +331,126 @@ function Createtask() {
   return (
     <DashboardLayout activeMenu="Create Task">
       <div className="mt-3">
-        <div className="grid grid-cols-12 md:grid-cols-4 mt-2">
-          <div className="p-4 rounded-md shadow-sm border border-slate-200 col-span-3 space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold">
-                {taskId ? 'Update Task' : 'Create Task'}
-              </h2>
-              {taskId && (
-                <button
-                  className="flex items-center gap-2 text-red-500 hover:text-red-700"
-                  onClick={() => setopenDeleteAlert(true)}
-                >
-                  <LuTrash2 /> Delete
-                </button>
-              )}
-            </div>
+       <div className="grid sm:grid-cols-4 lg:grid-cols-4 md:grid-cols-4 mt-4 gap-4">
+  <div className="col-span-1 md:col-span-3 bg-white border border-slate-200 shadow-md rounded-2xl p-6 space-y-6">
+    {/* Header */}
+    <div className="flex items-center justify-between">
+      <h2 className="text-xl font-semibold text-gray-800">
+        {taskId ? 'Update Task' : 'Create Task'}
+      </h2>
+      {taskId && (
+        <button
+          className="flex items-center gap-1 text-red-500 hover:text-red-700 text-sm"
+          onClick={() => setopenDeleteAlert(true)}
+        >
+          <LuTrash2 size={16} /> Delete
+        </button>
+      )}
+    </div>
 
-            <div>
-              <label className="text-sm font-medium">Task Title</label>
-              <input
-                type="text"
-                className="w-full text-sm outline-none border px-2 py-1 mt-1 rounded"
-                placeholder="Create App UI"
-                value={taskdata.title}
-                onChange={(e) => handleValueChange('title', e.target.value)}
-              />
-            </div>
+    {/* Task Title */}
+    <div>
+      <label className="text-sm font-medium text-gray-700">Task Title</label>
+      <input
+        type="text"
+        className="w-full mt-1 border border-slate-300 px-3 py-2 text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        placeholder="Create App UI"
+        value={taskdata.title}
+        onChange={(e) => handleValueChange('title', e.target.value)}
+      />
+    </div>
 
-            <div>
-              <label className="text-sm font-medium">Description</label>
-              <textarea
-                className="w-full text-sm outline-none border px-2 py-1 mt-1 rounded"
-                placeholder="Enter task description"
-                rows={3}
-                value={taskdata.description}
-                onChange={(e) => handleValueChange('description', e.target.value)}
-              />
-            </div>
+    {/* Description */}
+    <div>
+      <label className="text-sm font-medium text-gray-700">Description</label>
+      <textarea
+        className="w-full mt-1 border border-slate-300 px-3 py-2 text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        placeholder="Enter task description"
+        rows={3}
+        value={taskdata.description}
+        onChange={(e) => handleValueChange('description', e.target.value)}
+      />
+    </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div>
-                <label className="text-sm font-medium">Priority</label>
-                <SelectDropdown
-                  options={PRIORITY_DATA}
-                  value={taskdata.priority}
-                  onChange={(value) => handleValueChange("priority", value)}
-                  placeholder="Select Priority"
-                />
-              </div>
+    {/* Grid Fields */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Priority */}
+      <div>
+        <label className="text-sm font-medium text-gray-700">Priority</label>
+        <SelectDropdown
+          options={PRIORITY_DATA}
+          value={taskdata.priority}
+          onChange={(value) => handleValueChange("priority", value)}
+          placeholder="Select Priority"
+        />
+      </div>
 
-              <div>
-                <label className="text-sm font-medium">Due Date</label>
-                <input
-                  type="date"
-                  className="w-full border px-2 py-1 rounded"
-                  value={taskdata.duedate}
-                  onChange={(e) => handleValueChange('duedate', e.target.value)}
-                />
-              </div>
+      {/* Due Date */}
+      <div>
+        <label className="text-sm font-medium text-gray-700">Due Date</label>
+        <input
+          type="date"
+          className="w-full mt-1 border border-slate-300 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          value={taskdata.duedate}
+          onChange={(e) => handleValueChange('duedate', e.target.value)}
+        />
+      </div>
 
-              <div>
-                <label className="text-sm font-medium">Assigned To</label>
-                <SelectUsers
-                  selectedUsers={taskdata.assignedTo}
-                  setselectedUsers={(value) => {
-                    handleValueChange("assignedTo", value)
-                  }}
-                />
-              </div>
+      {/* Assigned To */}
+      <div>
+        <label className="text-sm font-medium text-gray-700">Assigned To</label>
+        <SelectUsers
+          selectedUsers={taskdata.assignedTo}
+          setselectedUsers={(value) => handleValueChange("assignedTo", value)}
+        />
+      </div>
 
-              {/* <div>
-                <label className="text-sm font-medium">Status</label>
-                <select
-                  className="w-full border px-2 py-1 rounded"
-                  value={taskdata.status}
-                  onChange={(e) => handleValueChange('status', e.target.value)}
-                >
-                  <option value="Pending">Pending</option>
-                  <option value="In Progress">In Progress</option>
-                  <option value="Completed">Completed</option>
-                </select>
-              </div> */}
+      {/* Status */}
+      <div>
+        <label className="text-sm font-medium text-gray-700">Status</label>
+        <SelectDropdown
+          options={STATUS_DATA}
+          value={taskdata.status}
+          onChange={(value) => handleValueChange("status", value)}
+          placeholder="Select Status"
+        />
+      </div>
+    </div>
 
+    {/* Checklist */}
+    <div>
+      <label className="text-sm font-medium text-gray-700">Todo Checklist</label>
+      <TodoListinput
+        todolist={taskdata?.todoChecklist}
+        setTodolist={(value) => handleValueChange("todoChecklist", value)}
+      />
+    </div>
 
-<div>
-                <label className="text-sm font-medium">Status</label>
-                <SelectDropdown
-                  options={STATUS_DATA}
-                  value={taskdata.status}
-                  onChange={(value) => handleValueChange("status", value)}
-                  placeholder="Select status"
-                />
-              </div>
+    {/* Attachments */}
+    <div>
+      <label className="text-sm font-medium text-gray-700">Add Attachment</label>
+      <AddAttachmentInput
+        attachments={taskdata?.attachments}
+        setattachments={(value) => handleValueChange("attachments", value)}
+      />
+    </div>
 
+    {/* Error Message */}
+    {error && <p className="text-red-500 text-sm">{error}</p>}
 
-            </div>
+    {/* Submit */}
+    <div className="flex justify-end">
+      <button
+        onClick={handleSubmit}
+        disabled={loading}
+        className="px-5 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition-all duration-300"
+      >
+        {taskId ? "UPDATE TASK" : "CREATE TASK"}
+      </button>
+    </div>
+  </div>
+</div>
 
-            
-
-            <div className=' mt-3'>
-              <label >
-                Todo Checklist
-              </label>
-              <TodoListinput
-                todolist={taskdata?.todoChecklist}
-                setTodolist={(value) => {
-                  handleValueChange("todoChecklist", value)
-                }}
-              />
-            </div>
-
-            <div>
-              <label >Add Attachment</label>
-              <AddAttachmentInput
-                attachments={taskdata?.attachments}
-                setattachments={(value) => handleValueChange("attachments", value)}
-              />
-            </div>
-
-            {error && (
-              <p>{error}</p>
-            )}
-
-            <div className=' flex justify-end'>
-              <button onClick={handleSubmit} disabled={loading} className=' px-2 py-1 rounded-md bg-blue-500 text-white '>
-                {taskId ? "UPDATE TASK" : "CREATE TASK"}
-              </button>
-            </div>
-
-          </div>
-        </div>
       </div>
 
       <Model

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet, Navigate, Link } from "react-router-dom";
 import Login from "./pages/Auth/Login";
 import Home from "./pages/Home";
 import PrivateRoute from "./routes/PrivateRoute";

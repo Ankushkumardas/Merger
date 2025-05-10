@@ -47,22 +47,22 @@ function MyTask() {
       const response = await axiosInstance.get(API_PATHS.REPORTS.EXPORT_USERS, {
         responseType: "blob", // Ensure blob response
       });
-  
+
       // Create a download URL from the blob
       const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const url = window.URL.createObjectURL(blob);
-  
+
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute("download", "UserDetails.xlsx");
-  
+
       document.body.appendChild(link);
       link.click();
-  
+
       // Clean up
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-  
+
       toast.success("Excel file downloaded successfully");
     } catch (error) {
       console.error("Error downloading Excel file:", error);
@@ -81,12 +81,12 @@ function MyTask() {
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-semibold">My Tasks</h2>
           <button
-      onClick={handleDownloadtaskreport}
-      className="px-2 py-1 rounded-md bg-green-200 text-green-600 hover:bg-green-300/70 flex gap-1 items-center"
-    >
-      <LuFileSpreadsheet />
-      Download Report
-    </button>
+            onClick={handleDownloadtaskreport}
+            className="px-2 py-1 rounded-md bg-green-200 text-green-600 hover:bg-green-300/70 flex gap-1 items-center"
+          >
+            <LuFileSpreadsheet />
+            Download Report
+          </button>
         </div>
 
         {tabs?.[0]?.count > 0 && (

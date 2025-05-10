@@ -1,5 +1,5 @@
 
-import React, { UseContext, useState } from 'react';
+import React, { useContext, UseContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import AuthLayout from '../../components/Layout/AuthLayout';
@@ -21,7 +21,7 @@ function Signup() {
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
-  const {updateUser}=UseContext(UserContext);
+  const {updateUser}=useContext(UserContext);
 
   const handleSubmit =async (e) => {
     e.preventDefault();

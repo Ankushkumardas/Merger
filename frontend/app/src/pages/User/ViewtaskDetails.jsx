@@ -63,8 +63,8 @@ function ViewtaskDetails() {
 
 
   const handleLinkClick = (link) => {
-    if(!/^https?:\/\//i.test(link)){
-      link="https://+link";
+    if (!/^https?:\/\//i.test(link)) {
+      link = "https://+link";
     }
     window.open(link, "_blank");
   };
@@ -78,64 +78,72 @@ function ViewtaskDetails() {
     <DashboardLayout activeMenu={"View Details"}>
       <div className=' mt-5'>
         <h2>View Detail of User</h2>
-        <div className=' grid md:grid-cols-4 grid-cols-1 gap-2 mt-3'>
-          <div className=' border p-2 rounded-md border-slate-300 shadow-sm w-72'>
-            <div className=' flex items-center justify-between '>
+        <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 mt-6">
+  <div className="bg-white w-full max-w-xs mx-auto border border-slate-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-4">
+    
+    {/* Header: Title + Status */}
+    <div className="flex justify-between items-start mb-3">
+      <h3 className="text-lg font-semibold text-gray-800">{task?.title}</h3>
+      <div className={`${getStatusColors(task?.status)} text-xs font-medium px-2 py-0.5 rounded-full`}>
+        {task?.status}
+      </div>
+    </div>
 
-              {task?.title}
-              <div className={`${getStatusColors(task?.status)} px-3 py-0.5 rounded-md`}>
-status
+    {/* Description */}
+    <div className="text-sm text-gray-600 mb-2">
+      <span className="font-medium">Description: </span>
+      <span>{task?.description}</span>
+    </div>
 
-              </div>
-            </div>
-            <div>
-              <p>Description: <span>
-                {task?.description}
-              </span></p>
-            </div>
-            <div>
-              <p>Priority: <span>
-                {task?.priority}
-              </span></p>
-            </div>
+    {/* Priority */}
+    <div className="text-sm text-gray-600 mb-2">
+      <span className="font-medium">Priority: </span>
+      <span>{task?.priority}</span>
+    </div>
 
-            <div>
-              <h2>TodoChecklist</h2>
-              {task?.todoChecklist?.map((item,index) => (
-                <TodoCheckList
-                key={`todo_${index}`}
-                text={item.text}
-                isChecked={item?.completed}
-                onChange={()=>updateTodoChecklist (index)}
-                />
-              ))}
-            </div>
-
-            <div>
-              <p>Assigned To:</p>
-              <AvatarGroup
-              avatars={task?.assignedTo?.map((item)=>item?.profileImageUrl)||[]} maxVisible={5}/>
-            </div>
-
-            <div>
-  {task?.attachments?.length > 0 && (
-    <>
-      <label>Attachments</label>
-      <ul>
-        {task?.attachments?.map((link, index) => (
-          <Attachment
-          key={`link_${index}`}
-          link={link}
-          index={index}
-          onClick={()=>handleLinkClick(link)}
+    {/* Todo Checklist */}
+    <div className="mb-3">
+      <h4 className="text-sm font-medium text-gray-700 mb-1">Checklist</h4>
+      <div className="space-y-1 max-h-28 overflow-y-auto pr-1">
+        {task?.todoChecklist?.map((item, index) => (
+          <TodoCheckList
+            key={`todo_${index}`}
+            text={item.text}
+            isChecked={item?.completed}
+            onChange={() => updateTodoChecklist(index)}
           />
         ))}
-      </ul>
-    </>
-  )}
+      </div>
+    </div>
+
+    {/* Assigned To */}
+    <div className="mb-3 flex justify-between items-center">
+      <p className="text-sm font-medium text-gray-700 mb-1">Assigned To</p>
+      <AvatarGroup
+        avatars={task?.assignedTo?.map((item) => item?.profileImageUrl) || []}
+        maxVisible={5}
+      />
+    </div>
+
+    {/* Attachments */}
+    {task?.attachments?.length > 0 && (
+      <div>
+        <p className="text-sm font-medium text-gray-700 mb-1">Attachments</p>
+        <ul className="list-disc list-inside space-y-1 text-sm text-blue-600">
+          {task?.attachments?.map((link, index) => (
+            <Attachment
+              key={`link_${index}`}
+              link={link}
+              index={index}
+              onClick={() => handleLinkClick(link)}
+            />
+          ))}
+        </ul>
+      </div>
+    )}
+  </div>
 </div>
-          </div>
-        </div>
+
       </div>
     </DashboardLayout>
   )
@@ -144,13 +152,13 @@ status
 export default ViewtaskDetails
 
 
-const TodoCheckList=({key,text,isChecked,onChange})=>{
+const TodoCheckList = ({ key, text, isChecked, onChange }) => {
 
-  return(
+  return (
     <div key={key} className=' flex gap-2'>
       <input type="checkbox"
-      checked={isChecked} 
-      onChange={onChange}
+        checked={isChecked}
+        onChange={onChange}
       />
       <p>{text}</p>
     </div>
